@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.movieapps.data.DataSource
+import com.example.movieapps.ui.MovieAppsRoute
 import com.example.movieapps.ui.theme.MovieAppsTheme
 import com.example.movieapps.ui.view.ListMovieView
 import com.example.movieapps.ui.view.ProfileView
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    ListMovieView(DataSource().loadMovie())
+                    MovieAppsRoute()
                 }
             }
         }

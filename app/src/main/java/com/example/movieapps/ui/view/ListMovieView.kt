@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -44,7 +45,8 @@ import com.example.movieapps.viewmodel.ListMovieViewModel
 @Composable
 fun ListMovieView(
     movieList : List<Movie>,
-    onFavClicked: (Movie) -> Unit
+    onFavClicked: (Movie) -> Unit,
+    onCardClicked: (Movie) -> Unit
     ){
     LazyVerticalGrid(
         columns = GridCells.Fixed(2)
@@ -63,22 +65,26 @@ fun ListMovieView(
                     onFavClicked(movie)
                     isLikedView = movie.isLiked
                 },
+                onCardClicked = {onCardClicked(movie)},
                 isLikedView = isLikedView
             )
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieCard(
     movie : Movie,
     modifier: Modifier = Modifier,
     onFavClicked: () -> Unit,
-    isLikedView: Boolean
+    onCardClicked: () -> Unit,
+    isLikedView: Boolean,
 ){
 
     Card(
-        modifier = modifier
+        modifier = modifier,
+        onClick = onCardClicked
     ){
         Column {
             Box(
@@ -168,8 +174,9 @@ fun ListMovieViewPreview(){
     val listMovieViewModel: ListMovieViewModel = viewModel()
     when(val status = listMovieViewModel.listMovieUIState){
         is ListMovieUIState.Loading-> {}
-        is ListMovieUIState.Success-> ListMovieView(movieList = status.data, onFavClicked = { listMovieViewModel.onFavClicked(it)})
+        is ListMovieUIState.Success-> ListMovieView(movieList = status.data, onFavClicked = { listMovieViewModel.onFavClicked(it)}, {})
         is ListMovieUIState.Error-> {}
+        else -> {}
     }
 
 }
