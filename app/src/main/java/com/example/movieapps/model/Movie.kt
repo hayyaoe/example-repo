@@ -6,13 +6,14 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 data class Movie(
+    val id: Int,
     val overview: String,
     @DrawableRes val posterPath: Int,
     val releaseDate: Date,
     val title: String,
     val voteAverage: Float,
     val voteCount: Int,
-    val isLiked: Boolean = false,
+    var isLiked: Boolean = false,
 ){
     @SuppressLint("SimpleDateFormat")
     fun getYear(): String{

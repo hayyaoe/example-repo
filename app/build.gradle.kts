@@ -5,12 +5,13 @@ plugins {
 
 android {
     namespace = "com.example.movieapps"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.movieapps"
         minSdk = 31
-        targetSdk = 33
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -50,6 +51,9 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.core:core-ktx:1.9.0")
