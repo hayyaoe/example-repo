@@ -1,6 +1,7 @@
 package com.example.movieapps.service
 
 import com.example.movieapps.model.NowPlaying
+import com.example.movieapps.model.RawMovie
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

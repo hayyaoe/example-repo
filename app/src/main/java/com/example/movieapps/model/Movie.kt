@@ -8,7 +8,7 @@ import java.util.Date
 data class Movie(
     val id: Int,
     val overview: String,
-    @DrawableRes val posterPath: Int,
+    val posterPath: String,
     val releaseDate: Date,
     val title: String,
     val voteAverage: Float,
