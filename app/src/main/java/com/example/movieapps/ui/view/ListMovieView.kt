@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,7 +39,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.movieapps.model.Movie
+import com.example.movieapps.repository.MovieDBContainer
 import com.example.movieapps.viewmodel.ListMovieUIState
 import com.example.movieapps.viewmodel.ListMovieViewModel
 
@@ -91,8 +95,12 @@ fun MovieCard(
                 contentAlignment = Alignment.BottomEnd
             )
             {
-                Image(
-                    painter = painterResource(id = movie.posterPath),
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(MovieDBContainer.BASE_IMAGE + movie.posterPath)
+                        .crossfade(true)
+                        .build()
+                    ,
                     contentDescription = "Movie Poster",
                     modifier = Modifier
                         .fillMaxWidth()

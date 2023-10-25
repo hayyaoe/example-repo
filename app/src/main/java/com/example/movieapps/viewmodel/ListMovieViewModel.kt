@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapps.data.DataSource
 import com.example.movieapps.model.Movie
+import com.example.movieapps.repository.MovieDBContainer
 import kotlinx.coroutines.launch
 
 sealed interface ListMovieUIState{
@@ -25,7 +26,7 @@ class ListMovieViewModel: ViewModel() {
     private fun loadData(){
         viewModelScope.launch {
             try {
-                sex = DataSource().loadMovie()
+                sex = MovieDBContainer().movieDBRepositories.getAllMovie(1)
                 listMovieUIState = ListMovieUIState.Success(sex)
             }catch (e: Exception){
                 listMovieUIState = ListMovieUIState.Error
