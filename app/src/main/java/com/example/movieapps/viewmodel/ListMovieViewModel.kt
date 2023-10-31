@@ -1,5 +1,6 @@
 package com.example.movieapps.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -15,20 +16,24 @@ sealed interface ListMovieUIState{
     object Error: ListMovieUIState
     object Loading: ListMovieUIState
 }
+
 class ListMovieViewModel: ViewModel() {
     var listMovieUIState: ListMovieUIState by mutableStateOf(ListMovieUIState.Loading)
+        private set
 
-    private lateinit var sex: List<Movie>
+    private lateinit var data: List<Movie>
 
-    init {
+    init{
         loadData()
     }
-    private fun loadData(){
-        viewModelScope.launch {
+
+    fun loadData(){
+        viewModelScope.launch{
             try {
-                sex = MovieDBContainer().movieDBRepositories.getAllMovie(1)
-                listMovieUIState = ListMovieUIState.Success(sex)
-            }catch (e: Exception){
+                data = MovieDBContainer().movieDBRepositories.getAllMovie(1)
+                listMovieUIState = ListMovieUIState.Success(data)
+            }catch(e: Exception){
+                Log.d("NetworkTest", e.message.toString())
                 listMovieUIState = ListMovieUIState.Error
             }
         }
@@ -36,6 +41,6 @@ class ListMovieViewModel: ViewModel() {
 
     fun onFavClicked(movie: Movie){
         movie.isLiked = !movie.isLiked
-//        send data to server
+        // sent server updated movie to server
     }
 }
